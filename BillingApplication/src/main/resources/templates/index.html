@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+<link href='https://fonts.googleapis.com/css?family=Merienda One' rel='stylesheet'>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<meta charset="ISO-8859-1">
+<title>Product Page</title>
+<style>
+#btnclass
+{
+  background-color:#f7c331;
+  
+  margin-top:10px;
+  
+
+}
+img
+{
+ margin-top:8px;
+ margin-left:8px;
+ 
+ }
+body 
+{
+ background-color:#dfece9
+;
+}
+nav
+{
+font-family: 'Merienda One';
+  background-color:#edad92;
+}
+td
+{
+text-align:center;
+}
+table
+{
+background-color:#fedcd2;
+font-family: 'Arial';
+}
+th
+{
+text-align:center;
+background-color:#fc8b69;
+font-family: 'Merienda One';
+}
+#myInput
+{
+  width:400px;
+  align:center;
+  margin-left:27%;
+  border-radius:6px;
+  outline:1px solid black;
+}
+</style>
+</head>
+<body>
+<nav class="navbar navbar-expand-sm  navbar-dark">
+  <ul class="navbar-nav">
+    <li class="nav-item active">
+      <a class="nav-link" href="#">Product Entry</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/first">Billing Page</a>
+    </li>
+    
+  </ul>
+</nav>
+
+<div class="row">
+<div class="col-sm-2"></div>
+<div class="col-sm-8">
+
+
+<hr>
+<a href="/new" role="button" class="btn d-display" id="btnclass" style="align:center;margin-left:39%;font-family: 'Merienda One'">Create New Product</a>
+<hr/>
+ <h2 style="align:center;color:#304f48;margin-left:39%;letter-spacing:1px;font-family: 'Merienda One'"><u>Product List</u></h2>
+  <br>
+   <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names or code.." >
+   <br>
+   <br>
+   <table border="1" class="table table-striped table-hover table-bordered" id="myTable">
+        <thead>
+            <tr>
+                <th> S.No</th>
+                <th>Product Code</th>
+                <th>Name</th>
+             
+                <th>Price</th>
+                <th>Gst</th>
+                <th>Edit & Delete</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+        
+            <tr th:each="product:${listProducts}">
+                <td th:text="${product.id}">S.No</td>
+                <td th:text="${product.product_code}">Code</td>
+                <td th:text="${product.product_name}">Name</td>
+                <td th:text="${product.product_price}">Price</td>
+                <td th:text="${product.product_gst}">Gst</td>
+                <td style="color:red"><a th:href="@{'/edit/' + ${product.id}}">Edit</a>
+                &nbsp;&nbsp;&nbsp;
+                <a th:href="@{'/delete/' + ${product.id}}">Delete</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="col-sm-2"></div>
+
+</div>
+<script>
+function myFunction() {
+	  var input, filter, table, tr, td, i, txtValue,filters;
+	  input = document.getElementById("myInput");
+	  filter = input.value.toUpperCase();
+	  table = document.getElementById("myTable");
+	  tr = table.getElementsByTagName("tr");
+	  for (i = 0; i < tr.length; i++) {
+	    td = tr[i].getElementsByTagName("td")[2];
+	    tj = tr[i].getElementsByTagName("td")[1];
+	    if(td){
+	    	txtValue = td.textContent || td.innerText;
+	    	txtValues= tj.textContent || tj.innerText;
+	      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+	        tr[i].style.display = "";
+	      }
+	      else if(txtValues.toUpperCase().indexOf(filter)>-1) {
+	    	  
+	    	  tr[i].style.display="";
+	      }
+	      
+	      else {
+	        tr[i].style.display = "none";
+	      }
+	  }
+	      
+	      }    
+	  
+	}
+
+</script>
+</body>
+</html>

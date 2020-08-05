@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:th="http://www.thymeleaf.org">
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link href='https://fonts.googleapis.com/css?family=Merienda One' rel='stylesheet'>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<meta charset="ISO-8859-1">
+<script>
+$(function(){
+	$(document).on("click",".transrows",function(){
+		
+		 var getselectedvalues = $(".maintable input:checked").parents("tr").clone().appendTo($(".secondtable tbody").add(getselectedvalues));
+		 if(".maintable input:checked") {
+				
+			 $("input[type=checkbox]").prop("checked", false);
+		}
+
+	})
+	
+	
+})
+
+
+
+</script>
+
+<title>Billing Page</title>
+<style>
+.maintable
+{
+float:left;
+background-color:#fedcd2;
+font-family: 'Arial';
+
+}
+#second
+{
+background-color:#fedcd2;
+}
+body 
+{
+ background-color:#dfece9
+;
+}
+nav
+{
+font-family: 'Merienda One';
+  background-color:#edad92;
+}
+td
+{
+text-align:center;
+}
+
+th
+{
+text-align:center;
+background-color:#fc8b69;
+font-family: 'Merienda One';
+}
+#myInput
+{
+  width:400px;
+  align:center;
+  border-radius:6px;
+  outline:1px solid black;
+}
+#btnclass
+{
+  background-color:#f7c331;
+  
+  margin-top:10px;
+  
+
+}
+#btnc
+{
+  background-color:#f7c331;
+  
+  margin-top:10px;
+  
+
+}
+#btnd
+{
+  background-color:#f7c331;
+  
+  margin-top:10px;
+  
+
+}
+</style>
+</head>
+<body >
+<nav class="navbar navbar-expand-sm  navbar-dark">
+  <ul class="navbar-nav">
+    <li class="nav-item ">
+      <a class="nav-link" href="/">Product Entry</a>
+    </li>
+    <li class="nav-item active">
+      <a class="nav-link" href="#">Billing Page</a>
+    </li>
+    
+  </ul>
+</nav>
+
+<div align="center" class="row">
+<div class="col-sm-5">
+<br>
+
+   <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names or code.." >
+<br>
+<br>
+<input type="button" value="Send it for Bill" id="btnclass" class="transrows btn d-display" style="align:center;margin-left:9%;font-family: 'Merienda One'">
+<br>
+<br>
+    <table border="1" id="myTable" class="maintable table table-striped table-hover table-bordered" >
+        <tr>
+            <th>S.No</th>
+            <th>Code</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Gst</th>
+             <th>Tick if needed</th>
+           
+           
+        </tr>
+       
+        
+              
+            <tbody>     
+                
+                <tr th:each="product:${listProducts}">
+                <td th:text="${product.id}">S.No</td>
+                <td th:text="${product.product_code}">Code</td>
+                <td th:text="${product.product_name}">Name</td>
+                <td th:text="${product.product_price}">Price</td>
+                <td th:text="${product.product_gst}">Gst</td>
+                <td><input type="checkbox" class="check"></td>
+                </tr>
+        
+        </tbody>
+  </table>
+  
+  
+  </div>
+  <div class="col-sm-7">
+  <br>
+  <br>
+   <button type="button" id="btnd"  onclick="calculate()" class="btn d-display" style="align:center;margin-left:12%;font-family: 'Merienda One'">Add Quantity</button>
+<button type="button" onclick="cal()" id="btnc" class="btn d-display" style="align:center;margin-left:8%;font-family: 'Merienda One'">calculate</button>
+<br><br>
+  <table border="1" class="secondtable table table-striped table-hover table-bordered" id="second" style="width:40%;" >
+   <tr>
+            <th>S.No</th>
+            <th>code</th>
+            <th>name</th>
+            <th>price</th>
+            <th>gst</th>
+            <th>checkbox</th>
+            
+            
+        </tr>
+      
+       
+  </table>
+
+</div>
+</div>  
+<script>
+function myFunction() {
+  var input, filter, table, tr, td, i, txtValue,filters;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[2];
+    tj = tr[i].getElementsByTagName("td")[1];
+    if(td){
+    	txtValue = td.textContent || td.innerText;
+    	txtValues= tj.textContent || tj.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      }
+      else if(txtValues.toUpperCase().indexOf(filter)>-1) {
+    	  
+    	  tr[i].style.display="";
+      }
+      
+      else {
+        tr[i].style.display = "none";
+      }
+  }
+      
+      }    
+  
+}
+</script>
+
+
+
+
+<script>
+var i=1;
+function calculate(){
+	
+    $('#second').append('<input class="form-control" type="text" name="add" id="add'+ i +'" />');
+    
+    i+=1;
+
+
+}
+
+</script>
+<script>
+function cal() 
+{
+    var sum=0.0;
+    var number = 1;
+    var sum2=0.0;
+  var table= document.getElementById("second");
+ for(let i=1;i<table.rows.length;i++) {
+	 number=document.getElementById("add"+i).value;
+	 var sumOfGstAndPrice=parseInt(table.rows[i].cells[3].innerText)+parseFloat(table.rows[i].cells[4].innerText);
+	 sum+=(sumOfGstAndPrice*number);
+     console.log(sum);
+   
+    
+	
+         
+}
+   
+   var ans=sum.toFixed(2);
+    document.getElementById("cals").innerHTML="The total Bill Amount is "+ ans;
+                                           
+}
+</script>
+<p id="cals" style="margin-left:35%;margin-right:35%;width:30%;color:black;font-family: 'Merienda One';font-size:22px;text-align:center"></p>
+
+</body>
+
+</html>

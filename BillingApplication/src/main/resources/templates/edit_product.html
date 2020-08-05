@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+<link href='https://fonts.googleapis.com/css?family=Merienda One' rel='stylesheet'>
+<meta charset="ISO-8859-1">
+<title>Edit Product</title>
+<style>
+body 
+{
+margin-top:-18px;
+ background-color:#dfece9
+;
+}
+img
+{
+
+  margin-top:-6%;
+  margin-left:40%;
+  margin-right:40%;
+}
+input[type=text], select {
+  width: 60%;
+  margin-left:20%;
+  margin-right:20%;
+  padding: 12px 20px;
+  margin: 4px 0;
+  display: inline-block;
+  
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+button[type=submit] {
+  width: 30%;
+  margin-left:35%;
+  margin-right:35%;
+  background-color: #f7c331;
+  color: white;
+  padding: 14px 20px;
+  margin: 4px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+</style>
+</head>
+<body>
+
+<div style="background-color:#edad92;margin-top:-3px">
+<hr>
+        <h1 style="background-color:#edad92; text-align:center;letter-spacing:4px;font-family: 'Merienda One';color:white;">Edit Product</h1>
+<hr>
+</div>
+
+<br>
+        <br />
+<div align="center" style="background-color:#c0d8d4;margin-left:30%;margin-right:30%;width:40%;height:45%;margin-bottom:4px;">
+         <form action="#" th:action="@{/save}" th:object="${product}"
+            method="post">
+
+<img src="https://i.ibb.co/tp56yvf/119817430-logo-design-concept-with-trolley-symbols-and-shopping-items-this-logo-is-suitable-for-supe.jpg" style="border-radius:50%;" height="100px" width="100px">
+          
+                <br>
+                   <input type="text" th:field="*{id}" readonly="readonly" />
+                
+                     <br>
+  <br>
+                   <input type="text" placeholder="Enter the product code" th:field="*{product_code}" />
+                  <br>  <br>
+                    <input type="text" placeholder="Enter the product name" th:field="*{product_name}" />
+<br>
+<br>
+                  <input type="text" placeholder="Enter the product price" th:field="*{product_price}" />
+             
+                <br>  <br>
+                      <input type="text" placeholder="Enter the product gst" th:field="*{product_gst}" />
+                <br>  <br>
+                    <button type="submit">Save</button>
+                
+           
+        </form>
+</div>  
+</body>
+</html>
